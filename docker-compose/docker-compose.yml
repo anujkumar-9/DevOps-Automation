@@ -1,0 +1,38 @@
+services:
+
+  app:
+    image: my-app:latest
+    container_name: my-app
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:latest
+    container_name: my-app-nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    restart: unless-stopped
+
+
+#     Simple flow
+# docker-compose.yml
+#        ↓
+#    App Container
+#        ↓
+#    Nginx Container
+#        ↓
+#    Application
+# Interview mein:
+
+# Docker Compose ka use multiple containers ko ek configuration file se define aur manage karne ke liye hota hai.
+
+# services: → Application ke containers define karta hai.
+
+# ports: → Host port ko container port se map karta hai.
+
+# depends_on: → Service dependency define karta hai.
+
+# restart: unless-stopped → Container failure/restart ke baad automatically restart karne mein help karta hai.

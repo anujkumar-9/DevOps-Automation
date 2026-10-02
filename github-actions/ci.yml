@@ -1,0 +1,62 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  build-and-test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Tests
+        run: npm test
+
+      - name: Build Application
+        run: npm run build
+
+
+#         # Simple flow
+# Developer Push
+#       ↓
+# GitHub Actions
+#       ↓
+# Checkout Code
+#       ↓
+# Setup Node.js
+#       ↓
+# npm install
+#       ↓
+# npm test
+#       ↓
+# npm run build
+# Interview mein important:
+
+# on: → Pipeline kab trigger hogi.
+
+# runs-on: ubuntu-latest → Job kis runner/server environment par chalegi.
+
+# uses: → Existing GitHub Action use karta hai.
+
+# run: → Runner ke andar command execute karta hai.
+
+# jobs: → Workflow ke actual jobs define karta hai.

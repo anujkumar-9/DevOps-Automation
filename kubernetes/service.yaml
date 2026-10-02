@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: my-app-service
+
+spec:
+  type: LoadBalancer
+
+  selector:
+    app: my-app
+
+  ports:
+    - port: 80
+      targetPort: 3000
+
+
+
+#       Simple flow
+# Deployment
+#    ↓
+# Creates Pods
+#    ↓
+# 2 replicas
+#    ↓
+# Container
+#    ↓
+# Port 3000
+#    ↓
+# Service
+#    ↓
+# Port 80 → 3000
+# Interview mein important:
+
+# Deployment: Application ke Pods ko manage karta hai — replicas, updates, rollout etc.
+
+# Service: Pods ko stable network endpoint deta hai aur traffic ko Pods tak route karta hai.

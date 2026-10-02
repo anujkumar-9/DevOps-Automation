@@ -1,0 +1,48 @@
+---
+- name: Configure Web Server
+  hosts: webservers
+  become: yes
+
+  tasks:
+
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start Nginx
+      service:
+        name: nginx
+        state: started
+          enabled: yes
+
+
+  
+
+#         Simple flow
+# Ansible
+#    ↓
+# Target Server
+#    ↓
+# Update packages
+#    ↓
+# Install Nginx
+#    ↓
+# Start Nginx
+#    ↓
+# Enable Nginx on boot
+# Interview mein:
+
+# hosts: webservers → Kis group ke servers par playbook chalegi.
+
+# become: yes → Privilege escalation, generally sudo, use karega.
+
+# tasks → Jo actual configuration actions perform karni hain.
+
+# state: present → Nginx installed hona chahiye.
+
+# enabled: yes → Server reboot ke baad bhi Nginx automatically start ho.

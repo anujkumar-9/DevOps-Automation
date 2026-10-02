@@ -1,0 +1,64 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/anujkumar-9/my-app.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh 'npm test'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t my-app:latest .'
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                sh 'docker push my-app:latest'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'kubectl apply -f kubernetes/'
+            }
+        }
+    }
+}
+
+
+// Iska simple flow yaad rakho:
+// Developer
+//    ↓
+// GitHub
+//    ↓
+// Checkout
+//    ↓
+// Build
+//    ↓
+// Test
+//    ↓
+// Docker Build
+//    ↓
+// Docker Push
+//    ↓
+// Kubernetes Deploy
+// Interview mein agent any ka answer:
+
+// agent any means Jenkins can execute this pipeline on any available Jenkins agent/node.
